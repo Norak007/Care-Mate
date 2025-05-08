@@ -1,0 +1,235 @@
+import java.sql.*;
+import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.awt.*;
+import com.formdev.flatlaf.FlatLightLaf;
+
+public class CareMateSignUp extends javax.swing.JFrame {
+    public CareMateSignUp() {
+        initComponents();
+        this.setFocusable(true);
+        this.requestFocusInWindow();}
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        Fname = new javax.swing.JTextField();
+        Lname = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        btnSignUp = new javax.swing.JButton();
+        txtDOB = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(null);
+
+        Fname.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Fname.setForeground(java.awt.Color.gray);
+        Fname.setText("First Name");
+        Fname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                FnameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FnameFocusLost(evt);
+            }
+        });
+        Fname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FnameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Fname);
+        Fname.setBounds(70, 400, 130, 50);
+
+        Lname.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Lname.setForeground(java.awt.Color.gray);
+        Lname.setText("Last Name");
+        Lname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                LnameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                LnameFocusLost(evt);
+            }
+        });
+        Lname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LnameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Lname);
+        Lname.setBounds(210, 400, 130, 50);
+
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtEmail.setForeground(java.awt.Color.gray);
+        txtEmail.setText("Email");
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtEmail);
+        txtEmail.setBounds(120, 472, 220, 50);
+
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtPassword.setForeground(java.awt.Color.gray);
+        txtPassword.setText("password");
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusLost(evt);
+            }
+        });
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtPassword);
+        txtPassword.setBounds(120, 540, 220, 50);
+
+        btnSignUp.setBackground(new java.awt.Color(58, 118, 175));
+        btnSignUp.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnSignUp.setForeground(new java.awt.Color(255, 255, 255));
+        btnSignUp.setText("SignUp");
+        btnSignUp.setBorderPainted(false);
+        btnSignUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignUpActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSignUp);
+        btnSignUp.setBounds(150, 690, 100, 30);
+        jPanel1.add(txtDOB);
+        txtDOB.setBounds(120, 610, 220, 50);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\noram\\OneDrive - IMAM ABDULRAHMAN BIN FAISAL UNIVERSITY\\6\\OOP2\\المشروع\\تسجيل جديد.png")); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(0, 0, 420, 750);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 0, 420, 750));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
+        // TODO add your handling code here:
+        String firstName = Fname.getText().trim();
+        String lastName = Lname.getText().trim();
+        String email = txtEmail.getText().trim();
+        String password = String.valueOf(txtPassword.getPassword()).trim();
+    if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);return;}
+    try {Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/caremate2", "root", "2004");
+        String sql = "INSERT INTO Caregiver (first_name, last_name, email, password, contact_number, address) VALUES (?, ?, ?, ?, NULL, NULL)";
+        PreparedStatement pst = con.prepareStatement(sql);
+        pst.setString(1, firstName);
+        pst.setString(2, lastName);
+        pst.setString(3, email);
+        pst.setString(4, password);
+        int rowsInserted = pst.executeUpdate();
+        if (rowsInserted > 0) {
+            JOptionPane.showMessageDialog(this, "Account Created Successfully! Please log in.", "Success", JOptionPane.INFORMATION_MESSAGE);            
+            // الرجوع إلى صفحة تسجيل الدخول
+            CareMateLogin loginPage = new CareMateLogin();
+            loginPage.setVisible(true);
+            this.dispose();}
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);}
+    }//GEN-LAST:event_btnSignUpActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void LnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LnameActionPerformed
+
+    private void FnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FnameActionPerformed
+
+    private void FnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FnameFocusLost
+        if(Fname.getText().trim().isEmpty()){
+            Fname.setText("First Name");
+            Fname.setForeground(Color.GRAY);}
+    }//GEN-LAST:event_FnameFocusLost
+
+    private void FnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FnameFocusGained
+        if(Fname.getText().equals("First Name")){
+            Fname.setText("");
+            Fname.setForeground(Color.BLACK);}
+    }//GEN-LAST:event_FnameFocusGained
+
+    private void LnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_LnameFocusLost
+        if(Lname.getText().trim().isEmpty()){
+            Lname.setText("Last Name");
+            Lname.setForeground(Color.GRAY);}
+    }//GEN-LAST:event_LnameFocusLost
+
+    private void LnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_LnameFocusGained
+        if(Lname.getText().equals("Last Name")){
+            Lname.setText("");
+            Lname.setForeground(Color.BLACK);}
+    }//GEN-LAST:event_LnameFocusGained
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        if(txtEmail.getText().trim().isEmpty()){
+            txtEmail.setText("Email");
+            txtEmail.setForeground(Color.GRAY);}
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        if(txtEmail.getText().equals("Email")){
+            txtEmail.setText("");
+            txtEmail.setForeground(Color.BLACK);}
+    }//GEN-LAST:event_txtEmailFocusGained
+
+    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
+        if (String.valueOf(txtPassword.getPassword()).trim().isEmpty()) {
+            txtPassword.setText("Password");
+            txtPassword.setForeground(Color.GRAY);}
+    }//GEN-LAST:event_txtPasswordFocusLost
+
+    private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
+        if (String.valueOf(txtPassword.getPassword()).equals("Password")) {
+            txtPassword.setText("");
+            txtPassword.setForeground(Color.BLACK);}
+    }//GEN-LAST:event_txtPasswordFocusGained
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CareMateSignUp().setVisible(true);}});}
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Fname;
+    private javax.swing.JTextField Lname;
+    private javax.swing.JButton btnSignUp;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private com.toedter.calendar.JDateChooser txtDOB;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JPasswordField txtPassword;
+    // End of variables declaration//GEN-END:variables
+}

@@ -1,0 +1,73 @@
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+public class DBConnection{
+    
+    
+    
+
+    
+    public static void main(String[] args) {
+        Connection con;
+        PreparedStatement pst;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/caremate2", "root", "2004");
+            System.out.println("success");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    
+}
+
+
+/*
+public class DBConnection {
+    
+   
+
+    public static void main(String[] args) {
+
+     
+        final String DATABASE_URL = "jdbc:mysql://localhost:3306/CareMate";
+        final String USER = "root"; // غيّريه إذا كان عندك مستخدم مختلف
+        final String PASSWORD = "2004"; // حطي الباسوورد هنا إذا عندك
+
+        final String SELECT_QUERY = "SELECT Patient_ID, Full_Name, Gender, Blood_Type FROM Patient";
+
+        try (
+            Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_QUERY)
+        ) {
+            // الحصول على بيانات الأعمدة
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+
+            System.out.printf("Patient Table in CareMate2 Database:\n\n");
+
+            // طباعة أسماء الأعمدة
+            for (int i = 1; i <= numberOfColumns; i++) {
+                System.out.printf("%-20s", metaData.getColumnName(i));
+            }
+            System.out.println();
+
+            // طباعة النتائج
+            while (resultSet.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    System.out.printf("%-20s", resultSet.getObject(i));
+                }
+                System.out.println();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+*/
